@@ -1,0 +1,59 @@
+------------------------------------------------------------------------------------------------------------------------
+Result for query Q1:
+
+{"count":"4673017","commit.collection":"app.bsky.feed.like"}
+{"count":"3387006","commit.collection":"app.bsky.graph.follow"}
+{"count":"930269","commit.collection":"app.bsky.feed.post"}
+{"count":"597193","commit.collection":"app.bsky.feed.repost"}
+{"count":"142218","commit.collection":"app.bsky.graph.block"}
+{"count":"118646","commit.collection":"app.bsky.actor.profile"}
+{"count":"75984","commit.collection":"app.bsky.graph.listitem"}
+{"count":"53826"}
+{"count":"10467","commit.collection":"app.bsky.graph.listblock"}
+{"count":"3619","commit.collection":"app.bsky.graph.starterpack"}
+{"count":"3414","commit.collection":"app.bsky.graph.list"}
+{"count":"2554","commit.collection":"app.bsky.feed.threadgate"}
+{"count":"1076","commit.collection":"app.bsky.feed.postgate"}
+{"count":"686","commit.collection":"app.bsky.feed.generator"}
+{"count":"13","commit.collection":"app.bsky.labeler.service"}
+{"count":"6","commit.collection":"app.kollective.catalog"}
+------------------------------------------------------------------------------------------------------------------------
+Result for query Q2:
+
+{"count":"4631335","commit.collection":"app.bsky.feed.like","users":"694849"}
+{"count":"3220534","commit.collection":"app.bsky.graph.follow","users":"463192"}
+{"count":"895614","commit.collection":"app.bsky.feed.post","users":"327190"}
+{"count":"582487","commit.collection":"app.bsky.feed.repost","users":"188549"}
+{"count":"139918","commit.collection":"app.bsky.graph.block","users":"45808"}
+{"count":"72005","commit.collection":"app.bsky.graph.listitem","users":"7097"}
+{"count":"57530","commit.collection":"app.bsky.actor.profile","users":"54333"}
+{"count":"9994","commit.collection":"app.bsky.graph.listblock","users":"5104"}
+{"count":"2495","commit.collection":"app.bsky.graph.list","users":"1954"}
+{"count":"2295","commit.collection":"app.bsky.feed.threadgate","users":"1608"}
+{"count":"1052","commit.collection":"app.bsky.feed.postgate","users":"646"}
+{"count":"905","commit.collection":"app.bsky.graph.starterpack","users":"840"}
+{"count":"150","commit.collection":"app.bsky.feed.generator","users":"74"}
+------------------------------------------------------------------------------------------------------------------------
+Result for query Q3:
+
+{"hour_of_day":"16","commit.collection":"app.bsky.feed.like","count":"1024657"}
+{"hour_of_day":"16","commit.collection":"app.bsky.feed.post","count":"201824"}
+{"hour_of_day":"16","commit.collection":"app.bsky.feed.repost","count":"133098"}
+{"hour_of_day":"17","commit.collection":"app.bsky.feed.like","count":"2170794"}
+{"hour_of_day":"17","commit.collection":"app.bsky.feed.post","count":"423474"}
+{"hour_of_day":"17","commit.collection":"app.bsky.feed.repost","count":"270421"}
+{"hour_of_day":"18","commit.collection":"app.bsky.feed.like","count":"1435884"}
+{"hour_of_day":"18","commit.collection":"app.bsky.feed.post","count":"270316"}
+{"hour_of_day":"18","commit.collection":"app.bsky.feed.repost","count":"178968"}
+------------------------------------------------------------------------------------------------------------------------
+Result for query Q4:
+
+{"first_post_ts":"2024-11-21T16:25:49.000167Z","did":"did:plc:yj3sjq3blzpynh27cumnp5ks"}
+{"first_post_ts":"2024-11-21T16:25:49.001905Z","did":"did:plc:l5o3qjrmfztir54cpwlv2eme"}
+{"first_post_ts":"2024-11-21T16:25:49.003907Z","did":"did:plc:s4bwqchfzm6gjqfeb6mexgbu"}
+------------------------------------------------------------------------------------------------------------------------
+Result for query Q5:
+
+{"activity_span":"7902219","did":"did:plc:doxhhgtxqiv47tmcovpbcqai"}
+{"activity_span":"7901847","did":"did:plc:oqmcuym3iqvl5cpaxjw4idom"}
+{"activity_span":"7900413","did":"did:plc:k3aqnyog5k4xk4p6p2xxeirl"}

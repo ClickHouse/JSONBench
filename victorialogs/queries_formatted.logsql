@@ -1,0 +1,44 @@
+------------------------------------------------------------------------------------------------------------------------
+-- Q1 - Top event types
+------------------------------------------------------------------------------------------------------------------------
+*
+  | stats by (commit.collection)
+      count() as count
+  | sort by (count desc)
+
+------------------------------------------------------------------------------------------------------------------------
+-- Q2 - Top event types together with unique users per event type
+------------------------------------------------------------------------------------------------------------------------
+{kind="commit", commit.operation="create"}
+  | stats by (commit.collection)
+      count() as count,
+      count_uniq(did) as users
+  | sort by (count desc)
+
+------------------------------------------------------------------------------------------------------------------------
+-- Q3 - When do people use BlueSky
+------------------------------------------------------------------------------------------------------------------------
+{kind="commit", commit.operation="create", commit.collection=~"app\\.bsky\\.feed\\.(post|repost|like)"}
+  | math floor(_time/1h)%24 as hour_of_day
+  | stats by (commit.collection, hour_of_day)
+      count() as count
+  | sort by (hour_of_day, commit.collection)
+
+------------------------------------------------------------------------------------------------------------------------
+-- Q4 - top 3 post veterans
+------------------------------------------------------------------------------------------------------------------------
+{kind="commit", commit.operation="create", commit.collection="app.bsky.feed.post"}
+  | stats by (did)
+      min(_time) as first_post_ts
+  | first 3 (first_post_ts)
+
+------------------------------------------------------------------------------------------------------------------------
+-- Q5 - top 3 users with longest activity
+------------------------------------------------------------------------------------------------------------------------
+{kind="commit", commit.operation="create", commit.collection="app.bsky.feed.post"}
+  | stats by (did)
+      min(_time) tmin,
+      max(_time) tmax
+  | math round((tmax-tmin)/1e6) as activity_span
+  | keep did, activity_span
+  | first 3 (activity_span desc)

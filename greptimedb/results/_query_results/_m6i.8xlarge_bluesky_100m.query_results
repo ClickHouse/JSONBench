@@ -1,0 +1,132 @@
+------------------------------------------------------------------------------------------------------------------------
+Result for query Q1:
+
++----------------------------+----------+
+| event                      | cnt      |
++----------------------------+----------+
+| app.bsky.feed.like         | 44994712 |
+| app.bsky.graph.follow      | 36362556 |
+| app.bsky.feed.post         |  8740921 |
+| app.bsky.feed.repost       |  5625691 |
+| app.bsky.graph.block       |  1433188 |
+| app.bsky.actor.profile     |  1118161 |
+| app.bsky.graph.listitem    |   913702 |
+| NULL                       |   603435 |
+| app.bsky.graph.listblock   |    86211 |
+| app.bsky.graph.list        |    35906 |
+| app.bsky.graph.starterpack |    35656 |
+| app.bsky.feed.threadgate   |    28676 |
+| app.bsky.feed.postgate     |    12751 |
+| app.bsky.feed.generator    |     7636 |
+| app.top8.theme             |      684 |
+| app.bsky.labeler.service   |       40 |
+| app.kollective.catalog     |       39 |
+| app.kollective.profile     |        3 |
++----------------------------+----------+
+------------------------------------------------------------------------------------------------------------------------
+Result for query Q2:
+
++----------------------------+----------+---------+
+| event                      | cnt      | users   |
++----------------------------+----------+---------+
+| app.bsky.feed.like         | 44526587 | 2576215 |
+| app.bsky.graph.follow      | 34272827 | 2389002 |
+| app.bsky.feed.post         |  8377929 | 1346617 |
+| app.bsky.feed.repost       |  5466952 |  829331 |
+| app.bsky.graph.block       |  1407243 |  273510 |
+| app.bsky.graph.listitem    |   739276 |   37824 |
+| app.bsky.actor.profile     |   500177 |  415188 |
+| app.bsky.graph.listblock   |    81692 |   34441 |
+| app.bsky.feed.threadgate   |    25738 |   11261 |
+| app.bsky.graph.list        |    25572 |   16418 |
+| app.bsky.feed.postgate     |    12373 |    4929 |
+| app.bsky.graph.starterpack |     9885 |    7530 |
+| app.bsky.feed.generator    |     1229 |     668 |
+| app.bsky.labeler.service   |        6 |       6 |
+| app.kollective.catalog     |        2 |       2 |
+| app.kollective.profile     |        1 |       1 |
++----------------------------+----------+---------+
+------------------------------------------------------------------------------------------------------------------------
+Result for query Q3:
+
++----------------------+-------------+---------+
+| event                | hour_of_day | cnt     |
++----------------------+-------------+---------+
+| app.bsky.feed.like   |           0 | 2641357 |
+| app.bsky.feed.post   |           0 |  461400 |
+| app.bsky.feed.repost |           0 |  334831 |
+| app.bsky.feed.like   |           1 | 4671336 |
+| app.bsky.feed.post   |           1 |  872689 |
+| app.bsky.feed.repost |           1 |  582765 |
+| app.bsky.feed.like   |           2 | 4821033 |
+| app.bsky.feed.post   |           2 |  892478 |
+| app.bsky.feed.repost |           2 |  601866 |
+| app.bsky.feed.like   |           3 | 4670598 |
+| app.bsky.feed.post   |           3 |  868345 |
+| app.bsky.feed.repost |           3 |  572581 |
+| app.bsky.feed.like   |           4 | 1979712 |
+| app.bsky.feed.post   |           4 |  368069 |
+| app.bsky.feed.repost |           4 |  232219 |
+| app.bsky.feed.like   |           5 | 1294921 |
+| app.bsky.feed.post   |           5 |  238248 |
+| app.bsky.feed.repost |           5 |  151489 |
+| app.bsky.feed.like   |           6 | 1190298 |
+| app.bsky.feed.post   |           6 |  229582 |
+| app.bsky.feed.repost |           6 |  139551 |
+| app.bsky.feed.like   |           7 | 1124806 |
+| app.bsky.feed.post   |           7 |  228641 |
+| app.bsky.feed.repost |           7 |  133267 |
+| app.bsky.feed.like   |           8 | 1054516 |
+| app.bsky.feed.post   |           8 |  239876 |
+| app.bsky.feed.repost |           8 |  127897 |
+| app.bsky.feed.like   |           9 | 1042933 |
+| app.bsky.feed.post   |           9 |  254561 |
+| app.bsky.feed.repost |           9 |  129451 |
+| app.bsky.feed.like   |          10 |  977761 |
+| app.bsky.feed.post   |          10 |  234481 |
+| app.bsky.feed.repost |          10 |  120919 |
+| app.bsky.feed.like   |          16 | 1024657 |
+| app.bsky.feed.post   |          16 |  201824 |
+| app.bsky.feed.repost |          16 |  133098 |
+| app.bsky.feed.like   |          17 | 2170794 |
+| app.bsky.feed.post   |          17 |  423474 |
+| app.bsky.feed.repost |          17 |  270421 |
+| app.bsky.feed.like   |          18 | 2284731 |
+| app.bsky.feed.post   |          18 |  430342 |
+| app.bsky.feed.repost |          18 |  282612 |
+| app.bsky.feed.like   |          19 | 2309149 |
+| app.bsky.feed.post   |          19 |  432401 |
+| app.bsky.feed.repost |          19 |  285993 |
+| app.bsky.feed.like   |          20 | 2242139 |
+| app.bsky.feed.post   |          20 |  416903 |
+| app.bsky.feed.repost |          20 |  274236 |
+| app.bsky.feed.like   |          21 | 2291158 |
+| app.bsky.feed.post   |          21 |  422419 |
+| app.bsky.feed.repost |          21 |  271418 |
+| app.bsky.feed.like   |          22 | 2479318 |
+| app.bsky.feed.post   |          22 |  438214 |
+| app.bsky.feed.repost |          22 |  298571 |
+| app.bsky.feed.like   |          23 | 4255370 |
+| app.bsky.feed.post   |          23 |  723982 |
+| app.bsky.feed.repost |          23 |  523767 |
++----------------------+-------------+---------+
+------------------------------------------------------------------------------------------------------------------------
+Result for query Q4:
+
++----------------------------------+----------------------------+
+| user_id                          | first_post_ts              |
++----------------------------------+----------------------------+
+| did:plc:yj3sjq3blzpynh27cumnp5ks | 2024-11-21 16:25:49.000167 |
+| did:plc:l5o3qjrmfztir54cpwlv2eme | 2024-11-21 16:25:49.001905 |
+| did:plc:s4bwqchfzm6gjqfeb6mexgbu | 2024-11-21 16:25:49.003907 |
++----------------------------------+----------------------------+
+------------------------------------------------------------------------------------------------------------------------
+Result for query Q5:
+
++----------------------------------+---------------+
+| user_id                          | activity_span |
++----------------------------------+---------------+
+| did:plc:fcnbisw7xl6lmtcnvioocffz |      66454000 |
+| did:plc:qlk5ucoob3lji5ouezadxzue |      66453000 |
+| did:plc:yaojty57ipqxw4kyy224rmgf |      66452000 |
++----------------------------------+---------------+

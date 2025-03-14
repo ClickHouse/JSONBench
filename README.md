@@ -148,6 +148,7 @@ While the main benchmark uses a specific machine configuration for reproducibili
 - [ ] FerretDB
 - [ ] Apache Drill
 - [ ] GlareDB
+- [x] GreptimeDB
 
 ## Similar projects
 

@@ -660,8 +660,17 @@ function renderSummary(filtered_data) {
         document.getElementById('metric-title').innerText = 'Relative time (lower is better)';
     }
 
-    const sorted_indices = [...summaries.keys()].sort((a, b) => summaries[a] - summaries[b]);
-    const max_ratio = summaries[sorted_indices[sorted_indices.length - 1]];
+    const sorted_indices = [...summaries.keys()].sort((a, b) => {
+        const valA = summaries[a];
+        const valB = summaries[b];
+        // Handle NaN values: consider NaN greater than any number (place them at the end)
+        if (isNaN(valA) && isNaN(valB)) return 0;
+        if (isNaN(valA)) return 1;
+        if (isNaN(valB)) return -1;
+        // Normal numeric comparison
+        return valA - valB;
+    });
+    const max_ratio = summaries[sorted_indices.filter(idx => !isNaN(summaries[idx])).pop()];
 
     sorted_indices.map(idx => {
         const elem = filtered_data[idx];

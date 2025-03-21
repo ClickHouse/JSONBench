@@ -55,28 +55,36 @@ case $choice in
     2)
         benchmark 10 lz4
         benchmark 10 zstd
+        benchmark 10 flat
         ;;
     3)
         benchmark 100 lz4
         benchmark 100 zstd
+        benchmark 100 flat
         ;;
     4)
         benchmark 1000 lz4
         benchmark 1000 zstd
+        benchmark 1000 flat
         ;;
     5)
         benchmark 1 lz4
         benchmark 1 zstd
+        benchmark 1 flat
         benchmark 10 lz4
         benchmark 10 zstd
+        benchmark 10 flat
         benchmark 100 lz4
         benchmark 100 zstd
+        benchmark 100 flat
         benchmark 1000 lz4
         benchmark 1000 zstd
+        benchmark 1000 flat
         ;;
     *)
         benchmark 1 lz4
         benchmark 1 zstd
+        benchmark 1 flat
         ;;
 esac
 

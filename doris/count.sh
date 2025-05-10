@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# If you change something in this file, please change also in doris/total_size.sh.
+# If you change something in this file, please change also in starrocks/count.sh.
 
 # Check if the required arguments are provided
 if [[ $# -lt 2 ]]; then
@@ -12,4 +12,4 @@ fi
 DB_NAME="$1"
 TABLE_NAME="$2"
 
-mysql -P 9030 -h 127.0.0.1 -u root $DB_NAME -e "SHOW DATA FROM $TABLE_NAME"
+mysql -P 9030 -h 127.0.0.1 -u root $DB_NAME -e "SELECT count() FROM $TABLE_NAME;"

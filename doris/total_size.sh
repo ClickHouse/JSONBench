@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# If you change something in this file, please change also in doris/total_size.sh.
-
 # Check if the required arguments are provided
 if [[ $# -lt 2 ]]; then
     echo "Usage: $0 <DB_NAME> <TABLE_NAME>"

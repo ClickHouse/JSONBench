@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# If you change something in this file, please change also in doris/create_and_load.sh.
-
 # Check if the required arguments are provided
 if [[ $# -lt 7 ]]; then
     echo "Usage: $0 <DB_NAME> <TABLE_NAME> <DDL_FILE> <DATA_DIRECTORY> <NUM_FILES> <SUCCESS_LOG> <ERROR_LOG>"

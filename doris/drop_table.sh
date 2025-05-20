@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# If you change something in this file, please change also in doris/drop_table.sh.
+# If you change something in this file, please change also in starrocks/drop_table.sh.
 
 # Check if the required arguments are provided
 if [[ $# -lt 2 ]]; then

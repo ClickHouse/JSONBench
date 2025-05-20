@@ -138,6 +138,7 @@ While the main benchmark uses a specific machine configuration for reproducibili
 - [x] SingleStore
 - [x] GreptimeDB
 - [x] FerretDB
+- [x] Apache Doris
 - [ ] Quickwit
 - [ ] Meilisearch
 - [ ] Sneller

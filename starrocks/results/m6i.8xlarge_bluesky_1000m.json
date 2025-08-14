@@ -1,20 +1,20 @@
 {
   "system": "Starrocks",
-  "version": "3.4.0-e94580b",
+  "version": "3.5.3-799f68c",
   "os": "Ubuntu 24.04",
-  "date": "2025-03-24",
+  "date": "2025-08-13",
   "machine": "m6i.8xlarge, 10000gib gp3",
   "retains_structure": "yes",
   "tags": [
   ],
   "dataset_size": 1000000000,
-  "num_loaded_documents": 804000000,
-  "total_size": 158929000000,
+  "num_loaded_documents": 950999696,
+  "total_size": 203365627723,
   "result": [
-    [2.27,1.24,1.21],
-    [17.81,10.67,10.20],
-    [7.38,6.78,7.62],
-    [7.24, null, null],
-    [null, null, null]
+    [1.98,1.84,1.85],
+    [47.54,40.54,40.91],
+    [13.29,12.95,13.26],
+    [10.31,10.21,10.26],
+    [10.94,11.05,11.06]
   ]
 }

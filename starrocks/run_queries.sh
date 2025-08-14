@@ -2,6 +2,9 @@
 
 # If you change something in this file, please change also in doris/run_queries.sh.
 
+# Load shared environment
+source "$(dirname "$0")/env.sh"
+
 # Check if the required arguments are provided
 if [[ $# -lt 1 ]]; then
     echo "Usage: $0 <DB_NAME>"
@@ -26,7 +29,7 @@ cat queries.sql | while read -r query; do
 
     # Execute the query multiple times
     for i in $(seq 1 $TRIES); do
-        RESP=$(mysql -vvv -h127.1 -P9030 -uroot "$DB_NAME" -e "$query" | perl -nle 'print $1 if /\((\d+\.\d+)+ sec\)/' ||:)
+        RESP=$(mysql -vvv -h "$DB_HOST" -P "$DB_MYSQL_PORT" -u"$DB_USER" "$DB_NAME" -e "$query" | perl -nle 'print $1 if /\((\d+\.\d+)+ sec\)/' ||:)
         echo "Response time: ${RESP} s"
     done;
 done;

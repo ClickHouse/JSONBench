@@ -1,0 +1,19 @@
+{
+  "system": "Alibaba Cloud Hologres",
+  "version": "r4.0",
+  "date": "2025-09-12",
+  "machine": "Hologres Instance 32CU",
+  "retains_structure": "yes",
+  "tags": [
+  ],
+  "dataset_size": 1000000000,
+  "num_loaded_documents": 993999604,
+  "total_size":  113935090070,
+  "result": [
+	  [1.28344,0.387996,0.394197],
+[14.0496,12.3343,13.6941],
+[1.63458,0.75316,0.754978],
+[3.82664,2.58757,2.50737],
+[3.60571,2.67633,2.66443]
+  ]
+}

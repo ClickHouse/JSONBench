@@ -1,0 +1,116 @@
+/**
+ * Q1 - Top event types
+ */
+{
+  "query": "*",
+  "max_hits": 0,
+  "aggs": {
+    "events": {
+      "terms": {
+        "field": "commit.collection",
+        "order": { "_count": "desc" },
+        "size": 1000
+      }
+    }
+  }
+}
+
+/**
+ * Q2 - Top event types together with unique users per event type
+ */
+{
+  "query": "kind:commit AND commit.operation:create",
+  "max_hits": 0,
+  "aggs": {
+    "events": {
+      "terms": {
+        "field": "commit.collection",
+        "order": { "_count": "desc" },
+        "size": 1000
+      },
+      "aggs": {
+        "users": {
+          "cardinality": {
+            "field": "did"
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Q3 - When do people use BlueSky
+ */
+{
+  "query": "kind:commit AND commit.operation:create AND commit.collection:IN [app.bsky.feed.post app.bsky.feed.repost app.bsky.feed.like]",
+  "max_hits": 0,
+  "aggs": {
+    "events": {
+      "terms": {
+        "field": "commit.collection",
+        "order": { "_key": "asc" },
+        "size": 1000
+      },
+      "aggs": {
+        "hour_of_day": {
+          "date_histogram": {
+            "field": "time_us",
+            "fixed_interval": "1h"
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Q4 - top 3 post veterans
+ */
+{
+  "query": "kind:commit AND commit.operation:create AND commit.collection:app.bsky.feed.post",
+  "max_hits": 0,
+  "aggs": {
+    "users": {
+      "terms": {
+        "field": "did",
+        "order": { "first_post": "asc" },
+        "size": 3
+      },
+      "aggs": {
+        "first_post_ts": {
+          "min": {
+            "field": "time_us"
+          }
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Q5 - top 3 users with longest activity
+ *
+ * Not completely supported.
+ * Tantivy need to support `bucket_script` aggregation to allow this query.
+ */
+{
+  "query": "kind:commit AND commit.operation:create AND commit.collection:app.bsky.feed.post",
+  "max_hits": 0,
+  "aggs": {
+    "users": {
+      "terms": {
+        "field": "did",
+        "order": { "activity_span.max": "desc" },
+        "size": 3
+      },
+      "aggs": {
+        "activity_span": {
+          "stats": {
+            "field": "time_us"
+          }
+        }
+      }
+    }
+  }
+}

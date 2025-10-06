@@ -1,0 +1,36 @@
+[2025-10-06 18:55:47] 0 attempt failed for /home/ubuntu/data/bluesky/file_0171.json.gz with status code 200. Response: {
+    "TxnId": 453,
+    "Label": "d13aa85d-76b5-4276-8ec1-ff9f97afafcf",
+    "Status": "Fail",
+    "Message": "too many filtered rows",
+    "NumberTotalRows": 1000000,
+    "NumberLoadedRows": 999976,
+    "NumberFilteredRows": 24,
+    "NumberUnselectedRows": 0,
+    "LoadBytes": 478220890,
+    "LoadTimeMs": 8256,
+    "BeginTxnTimeMs": 0,
+    "StreamLoadPlanTimeMs": 1,
+    "ReadDataTimeMs": 7131,
+    "WriteDataTimeMs": 8253,
+    "CommitAndPublishTimeMs": 0,
+    "ErrorURL": "http://127.0.0.1:8040/api/_load_error_log?file=error_log_384903c2441b4b99_2c7f072cf13bffa2"
+}
+[2025-10-06 19:31:40] 0 attempt failed for /home/ubuntu/data/bluesky/file_0361.json.gz with status code 200. Response: {
+    "TxnId": 750,
+    "Label": "6a923e56-e4d4-43ca-b644-87750b2c4d04",
+    "Status": "Fail",
+    "Message": "too many filtered rows",
+    "NumberTotalRows": 1000000,
+    "NumberLoadedRows": 999982,
+    "NumberFilteredRows": 18,
+    "NumberUnselectedRows": 0,
+    "LoadBytes": 483991949,
+    "LoadTimeMs": 8135,
+    "BeginTxnTimeMs": 0,
+    "StreamLoadPlanTimeMs": 1,
+    "ReadDataTimeMs": 7137,
+    "WriteDataTimeMs": 8133,
+    "CommitAndPublishTimeMs": 0,
+    "ErrorURL": "http://127.0.0.1:8040/api/_load_error_log?file=error_log_91490120273284b5_c6bb0dbd533fe295"
+}

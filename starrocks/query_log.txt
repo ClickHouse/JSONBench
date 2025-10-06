@@ -1,0 +1,30 @@
+Clearing file system cache...
+File system cache cleared.
+Running query: SELECT get_json_string(data, 'commit.collection') AS event, count() AS count FROM bluesky GROUP BY event ORDER BY count DESC;
+Response time: 1.06 s
+Response time: 0.85 s
+Response time: 0.84 s
+Clearing file system cache...
+File system cache cleared.
+Running query: SELECT get_json_string(data, 'commit.collection') AS event, count() AS count, count(DISTINCT get_json_string(data, 'did')) AS users FROM bluesky WHERE (get_json_string(data, 'kind') = 'commit') AND (get_json_string(data, 'commit.operation') = 'create') GROUP BY event ORDER BY count DESC;
+Response time:  s
+Response time: 9.15 s
+Response time: 9.14 s
+Clearing file system cache...
+File system cache cleared.
+Running query: SELECT get_json_string(data, 'commit.collection') AS event, hour_from_unixtime(get_json_int(data, 'time_us')/1000000) as hour_of_day, count() AS count FROM bluesky WHERE (get_json_string(data, 'kind') = 'commit') AND (get_json_string(data, 'commit.operation') = 'create') AND (array_contains(['app.bsky.feed.post', 'app.bsky.feed.repost', 'app.bsky.feed.like'], get_json_string(data, 'commit.collection'))) GROUP BY event, hour_of_day ORDER BY hour_of_day, event;
+Response time: 20.52 s
+Response time: 2.09 s
+Response time: 1.96 s
+Clearing file system cache...
+File system cache cleared.
+Running query: SELECT get_json_string(data, 'did') as user_id, to_datetime(min(get_json_int(data, 'time_us')), 6) AS first_post_date FROM bluesky WHERE (get_json_string(data, 'kind') = 'commit') AND (get_json_string(data, 'commit.operation') = 'create') AND (get_json_string(data, 'commit.collection') = 'app.bsky.feed.post') GROUP BY user_id ORDER BY first_post_date ASC LIMIT 3;
+Response time: 14.79 s
+Response time: 1.42 s
+Response time: 1.34 s
+Clearing file system cache...
+File system cache cleared.
+Running query: SELECT get_json_string(data, 'did') as user_id, date_diff('millisecond', to_datetime(min(get_json_int(data, 'time_us')), 6), to_datetime(max(get_json_int(data, 'time_us')), 6)) AS activity_span FROM bluesky WHERE (get_json_string(data, 'kind') = 'commit') AND (get_json_string(data, 'commit.operation') = 'create') AND (get_json_string(data, 'commit.collection') = 'app.bsky.feed.post') GROUP BY user_id ORDER BY activity_span DESC LIMIT 3;
+Response time: 1.40 s
+Response time: 1.47 s
+Response time: 1.51 s

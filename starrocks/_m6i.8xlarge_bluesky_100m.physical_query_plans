@@ -1,0 +1,306 @@
+------------------------------------------------------------------------------------------------------------------------
+Physical query plan for query Q1:
+
+Explain String
+PLAN FRAGMENT 0
+ OUTPUT EXPRS:4: get_json_string | 5: count
+  PARTITION: UNPARTITIONED
+
+  RESULT SINK
+
+  6:MERGING-EXCHANGE
+
+PLAN FRAGMENT 1
+ OUTPUT EXPRS:
+  PARTITION: HASH_PARTITIONED: 4: get_json_string
+
+  STREAM DATA SINK
+    EXCHANGE ID: 06
+    UNPARTITIONED
+
+  5:SORT
+  |  order by: <slot 5> 5: count DESC
+  |  offset: 0
+  |  
+  4:AGGREGATE (merge finalize)
+  |  output: count(5: count)
+  |  group by: 4: get_json_string
+  |  
+  3:EXCHANGE
+
+PLAN FRAGMENT 2
+ OUTPUT EXPRS:
+  colocate exec groups: ExecGroup{groupId=3, nodeIds=[0, 1, 2]}
+  PARTITION: RANDOM
+
+  STREAM DATA SINK
+    EXCHANGE ID: 03
+    HASH_PARTITIONED: 4: get_json_string
+
+  2:AGGREGATE (update serialize)
+  |  STREAMING
+  |  output: count(*)
+  |  group by: 4: get_json_string
+  |  
+  1:Project
+  |  <slot 4> : 6: data.commit.collection
+  |  
+  0:OlapScanNode
+     TABLE: bluesky
+     PREAGGREGATION: ON
+     partitions=1/1
+     rollup: bluesky
+     tabletRatio=19/19
+     tabletList=10341,10437,10375,10471,10506,10315,10414,10352,10448,10386 ...
+     cardinality=91999989
+     avgRowSize=2.0
+------------------------------------------------------------------------------------------------------------------------
+Physical query plan for query Q2:
+
+Explain String
+PLAN FRAGMENT 0
+ OUTPUT EXPRS:4: get_json_string | 6: count | 7: count
+  PARTITION: UNPARTITIONED
+
+  RESULT SINK
+
+  7:Decode
+  |  <dict id 13> : <string id 4>
+  |  
+  6:MERGING-EXCHANGE
+
+PLAN FRAGMENT 1
+ OUTPUT EXPRS:
+  PARTITION: HASH_PARTITIONED: 13: get_json_string
+
+  STREAM DATA SINK
+    EXCHANGE ID: 06
+    UNPARTITIONED
+
+  5:SORT
+  |  order by: <slot 6> 6: count DESC
+  |  offset: 0
+  |  
+  4:AGGREGATE (merge finalize)
+  |  output: count(6: count), multi_distinct_count(7: count)
+  |  group by: 13: get_json_string
+  |  
+  3:EXCHANGE
+
+PLAN FRAGMENT 2
+ OUTPUT EXPRS:
+  colocate exec groups: ExecGroup{groupId=3, nodeIds=[0, 1, 2]}
+  PARTITION: RANDOM
+
+  STREAM DATA SINK
+    EXCHANGE ID: 03
+    HASH_PARTITIONED: 13: get_json_string
+
+  2:AGGREGATE (update serialize)
+  |  STREAMING
+  |  output: count(*), multi_distinct_count(5: get_json_string)
+  |  group by: 13: get_json_string
+  |  
+  1:Project
+  |  <slot 5> : 11: data.did
+  |  <slot 13> : DictDefine(12: data.commit.collection, [<place-holder>])
+  |  
+  0:OlapScanNode
+     TABLE: bluesky
+     PREAGGREGATION: ON
+     PREDICATES: 8: data.kind = 'commit', 9: data.commit.operation = 'create'
+     partitions=1/1
+     rollup: bluesky
+     tabletRatio=19/19
+     tabletList=10341,10437,10375,10471,10506,10315,10414,10352,10448,10386 ...
+     cardinality=91999989
+     avgRowSize=6.0
+------------------------------------------------------------------------------------------------------------------------
+Physical query plan for query Q3:
+
+Explain String
+PLAN FRAGMENT 0
+ OUTPUT EXPRS:4: get_json_string | 5: hour_from_unixtime | 6: count
+  PARTITION: UNPARTITIONED
+
+  RESULT SINK
+
+  7:Decode
+  |  <dict id 14> : <string id 4>
+  |  
+  6:MERGING-EXCHANGE
+
+PLAN FRAGMENT 1
+ OUTPUT EXPRS:
+  PARTITION: HASH_PARTITIONED: 14: get_json_string, 5: hour_from_unixtime
+
+  STREAM DATA SINK
+    EXCHANGE ID: 06
+    UNPARTITIONED
+
+  5:SORT
+  |  order by: <slot 5> 5: hour_from_unixtime ASC, <slot 14> 14: get_json_string ASC
+  |  offset: 0
+  |  
+  4:AGGREGATE (merge finalize)
+  |  output: count(6: count)
+  |  group by: 14: get_json_string, 5: hour_from_unixtime
+  |  
+  3:EXCHANGE
+
+PLAN FRAGMENT 2
+ OUTPUT EXPRS:
+  colocate exec groups: ExecGroup{groupId=3, nodeIds=[0, 1, 2]}
+  PARTITION: RANDOM
+
+  STREAM DATA SINK
+    EXCHANGE ID: 03
+    HASH_PARTITIONED: 14: get_json_string, 5: hour_from_unixtime
+
+  2:AGGREGATE (update serialize)
+  |  STREAMING
+  |  output: count(*)
+  |  group by: 14: get_json_string, 5: hour_from_unixtime
+  |  
+  1:Project
+  |  <slot 5> : hour_from_unixtime(CAST(CAST(10: data.time_us AS DOUBLE) / 1000000.0 AS BIGINT))
+  |  <slot 14> : DictDefine(11: data.commit.collection, [<place-holder>])
+  |  
+  0:OlapScanNode
+     TABLE: bluesky
+     PREAGGREGATION: ON
+     PREDICATES: DictDecode(12: data.kind, [<place-holder> = 'commit']), DictDecode(13: data.commit.operation, [<place-holder> = 'create']), array_contains(['app.bsky.feed.post','app.bsky.feed.repost','app.bsky.feed.like'], DictDecode(11: data.commit.collection, [<place-holder>]))
+     partitions=1/1
+     rollup: bluesky
+     tabletRatio=19/19
+     tabletList=10341,10437,10375,10471,10506,10315,10414,10352,10448,10386 ...
+     cardinality=22999997
+     avgRowSize=6.0
+------------------------------------------------------------------------------------------------------------------------
+Physical query plan for query Q4:
+
+Explain String
+PLAN FRAGMENT 0
+ OUTPUT EXPRS:4: get_json_string | 7: to_datetime
+  PARTITION: UNPARTITIONED
+
+  RESULT SINK
+
+  7:MERGING-EXCHANGE
+     limit: 3
+
+PLAN FRAGMENT 1
+ OUTPUT EXPRS:
+  PARTITION: HASH_PARTITIONED: 4: get_json_string
+
+  STREAM DATA SINK
+    EXCHANGE ID: 07
+    UNPARTITIONED
+
+  6:TOP-N
+  |  order by: <slot 7> 7: to_datetime ASC
+  |  offset: 0
+  |  limit: 3
+  |  
+  5:Project
+  |  <slot 4> : 4: get_json_string
+  |  <slot 7> : to_datetime(6: min, 6)
+  |  
+  4:AGGREGATE (merge finalize)
+  |  output: min(6: min)
+  |  group by: 4: get_json_string
+  |  
+  3:EXCHANGE
+
+PLAN FRAGMENT 2
+ OUTPUT EXPRS:
+  colocate exec groups: ExecGroup{groupId=3, nodeIds=[0, 1, 2]}
+  PARTITION: RANDOM
+
+  STREAM DATA SINK
+    EXCHANGE ID: 03
+    HASH_PARTITIONED: 4: get_json_string
+
+  2:AGGREGATE (update serialize)
+  |  STREAMING
+  |  output: min(5: get_json_int)
+  |  group by: 4: get_json_string
+  |  
+  1:Project
+  |  <slot 4> : 11: data.did
+  |  <slot 5> : 12: data.time_us
+  |  
+  0:OlapScanNode
+     TABLE: bluesky
+     PREAGGREGATION: ON
+     PREDICATES: DictDecode(15: data.kind, [<place-holder> = 'commit']), DictDecode(13: data.commit.operation, [<place-holder> = 'create']), DictDecode(14: data.commit.collection, [<place-holder> = 'app.bsky.feed.post'])
+     partitions=1/1
+     rollup: bluesky
+     tabletRatio=19/19
+     tabletList=10341,10437,10375,10471,10506,10315,10414,10352,10448,10386 ...
+     cardinality=91999989
+     avgRowSize=7.0
+------------------------------------------------------------------------------------------------------------------------
+Physical query plan for query Q5:
+
+Explain String
+PLAN FRAGMENT 0
+ OUTPUT EXPRS:4: get_json_string | 8: date_diff
+  PARTITION: UNPARTITIONED
+
+  RESULT SINK
+
+  7:MERGING-EXCHANGE
+     limit: 3
+
+PLAN FRAGMENT 1
+ OUTPUT EXPRS:
+  PARTITION: HASH_PARTITIONED: 4: get_json_string
+
+  STREAM DATA SINK
+    EXCHANGE ID: 07
+    UNPARTITIONED
+
+  6:TOP-N
+  |  order by: <slot 8> 8: date_diff DESC
+  |  offset: 0
+  |  limit: 3
+  |  
+  5:Project
+  |  <slot 4> : 4: get_json_string
+  |  <slot 8> : date_diff('millisecond', to_datetime(6: min, 6), to_datetime(7: max, 6))
+  |  
+  4:AGGREGATE (merge finalize)
+  |  output: min(6: min), max(7: max)
+  |  group by: 4: get_json_string
+  |  
+  3:EXCHANGE
+
+PLAN FRAGMENT 2
+ OUTPUT EXPRS:
+  colocate exec groups: ExecGroup{groupId=3, nodeIds=[0, 1, 2]}
+  PARTITION: RANDOM
+
+  STREAM DATA SINK
+    EXCHANGE ID: 03
+    HASH_PARTITIONED: 4: get_json_string
+
+  2:AGGREGATE (update serialize)
+  |  STREAMING
+  |  output: min(5: get_json_int), max(5: get_json_int)
+  |  group by: 4: get_json_string
+  |  
+  1:Project
+  |  <slot 4> : 12: data.did
+  |  <slot 5> : 13: data.time_us
+  |  
+  0:OlapScanNode
+     TABLE: bluesky
+     PREAGGREGATION: ON
+     PREDICATES: DictDecode(14: data.kind, [<place-holder> = 'commit']), DictDecode(15: data.commit.operation, [<place-holder> = 'create']), DictDecode(16: data.commit.collection, [<place-holder> = 'app.bsky.feed.post'])
+     partitions=1/1
+     rollup: bluesky
+     tabletRatio=19/19
+     tabletList=10341,10437,10375,10471,10506,10315,10414,10352,10448,10386 ...
+     cardinality=91999989
+     avgRowSize=7.0

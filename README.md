@@ -4,9 +4,11 @@
 
 This benchmark compares the native JSON support of the most popular analytical databases.
 
-The [dataset](https://clickhouse.com/blog/json-bench-clickhouse-vs-mongodb-elasticsearch-duckdb-postgresql#the-json-dataset---a-billion-bluesky-events) is a collection of files containing JSON objects delimited by newline (ndjson). This was obtained using Jetstream to collect Bluesky events. The dataset contains 1 billion Bluesky events and is currently hosted on a public S3 bucket.
+The [dataset](https://clickhouse.com/blog/json-bench-clickhouse-vs-mongodb-elasticsearch-duckdb-postgresql#the-json-dataset---a-billion-bluesky-events) is a collection of files containing JSON objects delimited by newline (ndjson).
+This was obtained using Jetstream to collect Bluesky events.
+The dataset contains 1 billion Bluesky events and is currently hosted on a public S3 bucket.
 
-We wrote a [detailed blog post](https://clickhouse.com/blog/json-bench-clickhouse-vs-mongodb-elasticsearch-duckdb-postgresql) on JSONBench, explaining how it works and showcasing benchmark results for the first five databases: ClickHouse, MongoDB, Elasticsearch, DuckDB, and PostgreSQL.
+We wrote a [detailed blog post](https://clickhouse.com/blog/json-bench-clickhouse-vs-mongodb-elasticsearch-duckdb-postgresql) about JSONBench, explaining how it works and showcasing benchmark results for five databases: ClickHouse, MongoDB, Elasticsearch, DuckDB, and PostgreSQL.
 
 ## Principles
 
@@ -14,40 +16,69 @@ The [main principles](https://clickhouse.com/blog/json-bench-clickhouse-vs-mongo
 
 ### Reproducibility
 
-You can easily reproduce every test (although for some systems it may take from several hours to days) in a semi-automated way. The test setup is documented and uses inexpensive cloud VMs. The test process is documented in the form of a shell script, covering the installation of every system, loading of the data, running the workload, and collecting the result numbers. The dataset is published and made available for download in multiple formats.
+It is easy to reproduce every test in a semi-automated way (although for some systems it may take from several hours to days).
+The test setup is documented and uses inexpensive cloud VMs.
+The test process is available in the form of a shell script, covering the installation of each database, loading of the data, running the workload, and collecting the result numbers.
+The dataset is published and made available for download in multiple formats.
 
 ### Realism
 
-[The dataset](https://clickhouse.com/blog/json-bench-clickhouse-vs-mongodb-elasticsearch-duckdb-postgresql#the-json-dataset---a-billion-bluesky-events) is represented by real-world production data. The realistic data distributions allow for correctly accounting for compression, indices, codecs, custom data structures, etc., which is not possible with most of the random dataset generators. It can test various aspects of hardware as well: some queries require high storage throughput; some queries benefit from a large number of CPU cores, and some benefit from single-core speed; some queries benefit from high main memory bandwidth.
+[The dataset](https://clickhouse.com/blog/json-bench-clickhouse-vs-mongodb-elasticsearch-duckdb-postgresql#the-json-dataset---a-billion-bluesky-events) represents real-world production data.
+The realistic data distribution allows to account appropriately for compression, indices, codecs, custom data structures, etc., something that is not possible with most random data generators.
+JSONBench tests various aspects of the hardware as well: some queries require high storage throughput, some queries benefit from a large number of CPU cores, and some benefit from single-core speed, some queries benefit from high main memory bandwidth.
 
 ### Fairness
 
-Best efforts should be taken to understand the details of every tested system for a fair comparison. It is allowed to apply various [indexing methods](https://clickhouse.com/blog/json-bench-clickhouse-vs-mongodb-elasticsearch-duckdb-postgresql#some-json-paths-can-be-used-for-indexes-and-data-sorting) whenever appropriate.
+Databases must be benchmarked using their default settings.
+As an exception, it is okay to specify non-default settings if they are a prerequisite for running the benchmark (example: increasing the maximum JVM heap size).
+Non-mandatory settings, especially settings related to workload tuning, are not allowed.
 
-It is [not allowed](https://clickhouse.com/blog/json-bench-clickhouse-vs-mongodb-elasticsearch-duckdb-postgresql#no-query-results-cache) to use query results caching or flatten JSON into multiple non-JSON colums at insertion time.
+Some databases provide a native JSON data type that flattens nested JSON documents at insertion time to a single level, typically using `.` as separator between levels.
+We consider this a grey zone.
+On the one hand, flattening removes the possibility to restore the original documents.
+On the other hand, flattening is in many practical situations acceptable.
+The dashboard provides a toggle which allows to show or hide databases that use flattening.
+In the scope of JSONBench, we generally discourage flattening.
 
-Some databases do have a JSON data type but they flatten nested JSON documents at insertion time to a single level (typically using `.` as separator between levels). We consider this a grey zone. On the one hand, this removes the possibility to restore the original documents, on the other hand, flattening may in many practical situations be acceptable. The dashboard allows to filter out databases which do not retain the document structure (i.e. which flatten).
+Other forms of flattening, in particular flattening JSON into multiple non-JSON colums at insertion time, are disallowed.
+
+It is allowed to index the data using clustered indexes (= specifying the table sort order) or non-clustered indexes (= additional data structures, e.g. B-trees).
+We recognize that there are pros and cons of this approach.
+
+Pros:
+- The JSON documents in JSONBench expose a common and rather static structure. Many real-world use cases expose similar patterns. It is a widely used practice to create indexes based on the anticipated data structure.
+- The original [blog post](https://clickhouse.com/blog/json-bench-clickhouse-vs-mongodb-elasticsearch-duckdb-postgresql#some-json-paths-can-be-used-for-indexes-and-data-sorting) made use of indexes. Disallowing clustered indexes entirely would invalidate the original measurements.
+
+Cons:
+- There may be other real-world use cases where the JSON documents are highly dynamic (they share no common structure). In these cases, indexes are not useful.
+- Many databases use indexes to prune the set of scanned data ranges or retrieve result rows directly (no scan). As a result, the benchmark indirectly also measures the effectiveness of such access path optimization techniques.
+- Likewise, clustered indexes impact how well the data can be compressed. Again, this affects query runtimes indirectly.
+- In some databases, clustered indexes must be build on top of flattened (e.g. concatenated and materialized) JSON documents. This technically contradicts the previous statement that flattening is discouraged.
+
+It is not allowed to cache query results (or generally: intermediate results at the end of the query processing pipeline) between hot runs.
 
 ## Goals
 
-The goal is to advance the possibilities of data analytics on semistructured data. This benchmark is influenced by **[ClickBench](https://github.com/ClickHouse/ClickBench)** which was published in 2022 and has helped in improving performance, capabilities, and stability of many analytic databases. We would like to see comparable influence from **JSONBench**.
+The goal is to advance the possibilities of data analytics on semistructured data.
+This benchmark is influenced by **[ClickBench](https://github.com/ClickHouse/ClickBench)** which was published in 2022 and has helped in improving performance, capabilities, and stability of many analytics databases.
+We would like to see **JSONBench** having a similar impact on the community.
 
 ## Limitations
 
-The benchmark focuses on data analytics queries rather than search, single-value retrieval, or mutating operations.
-
-The benchmark does not record data loading times. While it was one of the initial goals, many systems require a finicky multi-step data preparation process, which makes them difficult to compare.
+The benchmark focuses on data analytics queries over JSON documents rather than single-value retrieval or data modification operations.
+The benchmark does not record data loading times.
+While it was one of the initial goals, many systems require a finicky multi-step data preparation process, which makes them difficult to compare.
 
 ## Pre-requisites
 
-To run the benchmark with 1 billion rows, it is important to provision a machine with sufficient resources and disk space. The full compressed dataset takes 125 Gb of disk space, uncompressed it takes up to 425 Gb.
+To run the benchmark with 1 billion rows, it is important to provision a machine with sufficient resources and disk space.
+The full compressed dataset takes 125 Gb of disk space, uncompressed it takes up to 425 Gb.
 
 For reference, the initial benchmarks have been run on the following machines:
-- AWS EC2 instance: m6i.8xlarge
-- Disk: > 10Tb gp3
+- Hardware: m6i.8xlarge AWS EC2 instance with 10Tb gp3 disks
 - OS: Ubuntu 24.04
 
-If you're interested in running the full benchmark, be aware that it will take several hours or days depending on the database.
+If you're interested in running the full benchmark, be aware that it will take several hours or days, depending on the database.
 
 ## Usage
 
@@ -57,7 +88,10 @@ The full dataset contains 1 billion rows, but the benchmark runs for [different 
 
 ### Download the data
 
-Start by downloading the dataset using the script [`download_data.sh`](./download_data.sh). When running the script, you will be prompted the dataset size you want to download, if you just want to test it out, I'd recommend starting with the default 1m rows, if you're interested to reproduce results at scale, go with the full dataset, 1 billion rows.
+Start by downloading the dataset using the script [`download_data.sh`](./download_data.sh).
+When running the script, you will be prompted the dataset size you want to download.
+If you just want to test it out, we recommend starting with the default 1m rows.
+If you are interested in reproducing the results at scale, go with the full dataset (1 billion rows).
 
 ```
 ./download_data.sh
@@ -72,7 +106,7 @@ Enter the number corresponding to your choice:
 
 ### Run the benchmark
 
-Navigate to the folder corresponding to the database you want to run the benchmark for.
+Navigate to folder corresponding to the database you want to run the benchmark for.
 
 The script `main.sh` is the script to run each benchmark.
 
@@ -116,7 +150,8 @@ Below is a description of the files that might be generated as a result of the b
 - `.results_runtime`: Contains the runtime results of the benchmark.
 - `.results_memory_usage`: Contains the memory usage results of the benchmark.
 
-The last step of our benchmark is manual (PRs to automate this last step are welcome). We manually retrieve the information from the outputted files into the final result JSON documents, which we add to the `results` subdirectory within the benchmark candidate's subdirectory.
+The last step of our benchmark is manual (PRs to automate this last step are welcome).
+We manually retrieve the information from the outputted files into the final result JSON documents, which we add to the `results` subdirectory within the benchmark candidate's subdirectory.
 
 For example, this is the [results](./clickhouse/results) directory for our ClickHouse benchmark results.
 

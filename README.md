@@ -55,7 +55,7 @@ Cons:
 - Likewise, clustered indexes impact how well the data can be compressed. Again, this affects query runtimes indirectly.
 - In some databases, clustered indexes must be build on top of flattened (e.g. concatenated and materialized) JSON documents. This technically contradicts the previous statement that flattening is discouraged.
 
-It is not allowed to use cache query results (or generally intermediate results at the end of the query processing pipeline) between hot runs.
+It is not allowed to cache query results (or generally: intermediate results at the end of the query processing pipeline) between hot runs.
 
 ## Goals
 

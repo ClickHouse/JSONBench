@@ -8,7 +8,7 @@ The [dataset](https://clickhouse.com/blog/json-bench-clickhouse-vs-mongodb-elast
 This was obtained using Jetstream to collect Bluesky events.
 The dataset contains 1 billion Bluesky events and is currently hosted on a public S3 bucket.
 
-We wrote a [detailed blog post](https://clickhouse.com/blog/json-bench-clickhouse-vs-mongodb-elasticsearch-duckdb-postgresql) on JSONBench, explaining how it works and showcasing benchmark results for the first five databases: ClickHouse, MongoDB, Elasticsearch, DuckDB, and PostgreSQL.
+We wrote a [detailed blog post](https://clickhouse.com/blog/json-bench-clickhouse-vs-mongodb-elasticsearch-duckdb-postgresql) about JSONBench, explaining how it works and showcasing benchmark results for five databases: ClickHouse, MongoDB, Elasticsearch, DuckDB, and PostgreSQL.
 
 ## Principles
 
@@ -16,16 +16,16 @@ The [main principles](https://clickhouse.com/blog/json-bench-clickhouse-vs-mongo
 
 ### Reproducibility
 
-You can easily reproduce every test (although for some systems it may take from several hours to days) in a semi-automated way.
+It is easy to reproduce every test in a semi-automated way (although for some systems it may take from several hours to days).
 The test setup is documented and uses inexpensive cloud VMs.
-The test process is documented in the form of a shell script, covering the installation of every system, loading of the data, running the workload, and collecting the result numbers.
+The test process is available in the form of a shell script, covering the installation of each database, loading of the data, running the workload, and collecting the result numbers.
 The dataset is published and made available for download in multiple formats.
 
 ### Realism
 
-[The dataset](https://clickhouse.com/blog/json-bench-clickhouse-vs-mongodb-elasticsearch-duckdb-postgresql#the-json-dataset---a-billion-bluesky-events) is represented by real-world production data.
-The realistic data distributions allow for correctly accounting for compression, indices, codecs, custom data structures, etc., which is not possible with most of the random dataset generators.
-It can test various aspects of hardware as well: some queries require high storage throughput; some queries benefit from a large number of CPU cores, and some benefit from single-core speed; some queries benefit from high main memory bandwidth.
+[The dataset](https://clickhouse.com/blog/json-bench-clickhouse-vs-mongodb-elasticsearch-duckdb-postgresql#the-json-dataset---a-billion-bluesky-events) represents real-world production data.
+The realistic data distribution allows to account appropriately for compression, indices, codecs, custom data structures, etc., something that is not possible with most random data generators.
+JSONBench tests various aspects of the hardware as well: some queries require high storage throughput, some queries benefit from a large number of CPU cores, and some benefit from single-core speed, some queries benefit from high main memory bandwidth.
 
 ### Fairness
 
@@ -42,13 +42,12 @@ The dashboard allows to filter out databases which do not retain the document st
 ## Goals
 
 The goal is to advance the possibilities of data analytics on semistructured data.
-This benchmark is influenced by **[ClickBench](https://github.com/ClickHouse/ClickBench)** which was published in 2022 and has helped in improving performance, capabilities, and stability of many analytic databases.
-We would like to see comparable influence from **JSONBench**.
+This benchmark is influenced by **[ClickBench](https://github.com/ClickHouse/ClickBench)** which was published in 2022 and has helped in improving performance, capabilities, and stability of many analytics databases.
+We would like to see **JSONBench** having a similar impact on the community.
 
 ## Limitations
 
-The benchmark focuses on data analytics queries rather than search, single-value retrieval, or mutating operations.
-
+The benchmark focuses on data analytics queries over JSON documents rather than single-value retrieval or data modification operations.
 The benchmark does not record data loading times.
 While it was one of the initial goals, many systems require a finicky multi-step data preparation process, which makes them difficult to compare.
 
@@ -58,11 +57,10 @@ To run the benchmark with 1 billion rows, it is important to provision a machine
 The full compressed dataset takes 125 Gb of disk space, uncompressed it takes up to 425 Gb.
 
 For reference, the initial benchmarks have been run on the following machines:
-- AWS EC2 instance: m6i.8xlarge
-- Disk: > 10Tb gp3
+- Hardware: m6i.8xlarge AWS EC2 instance with 10Tb gp3 disks
 - OS: Ubuntu 24.04
 
-If you're interested in running the full benchmark, be aware that it will take several hours or days depending on the database.
+If you're interested in running the full benchmark, be aware that it will take several hours or days, depending on the database.
 
 ## Usage
 
@@ -73,7 +71,9 @@ The full dataset contains 1 billion rows, but the benchmark runs for [different 
 ### Download the data
 
 Start by downloading the dataset using the script [`download_data.sh`](./download_data.sh).
-When running the script, you will be prompted the dataset size you want to download, if you just want to test it out, I'd recommend starting with the default 1m rows, if you're interested to reproduce results at scale, go with the full dataset, 1 billion rows.
+When running the script, you will be prompted the dataset size you want to download.
+If you just want to test it out, we recommend starting with the default 1m rows.
+If you are interested in reproducing the results at scale, go with the full dataset (1 billion rows).
 
 ```
 ./download_data.sh
@@ -88,7 +88,7 @@ Enter the number corresponding to your choice:
 
 ### Run the benchmark
 
-Navigate to the folder corresponding to the database you want to run the benchmark for.
+Navigate to folder corresponding to the database you want to run the benchmark for.
 
 The script `main.sh` is the script to run each benchmark.
 

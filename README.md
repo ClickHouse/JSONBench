@@ -29,15 +29,33 @@ JSONBench tests various aspects of the hardware as well: some queries require hi
 
 ### Fairness
 
-Best efforts should be taken to understand the details of every tested system for a fair comparison.
-It is allowed to apply various [indexing methods](https://clickhouse.com/blog/json-bench-clickhouse-vs-mongodb-elasticsearch-duckdb-postgresql#some-json-paths-can-be-used-for-indexes-and-data-sorting) whenever appropriate.
+Databases must be benchmarked using their default settings.
+As an exception, it is okay to specify non-default settings if they are a prerequisite for running the benchmark (example: increasing the maximum JVM heap size).
+Non-mandatory settings, especially settings related to workload tuning, are not allowed.
 
-It is [not allowed](https://clickhouse.com/blog/json-bench-clickhouse-vs-mongodb-elasticsearch-duckdb-postgresql#no-query-results-cache) to use query results caching or flatten JSON into multiple non-JSON colums at insertion time.
-
-Some databases do have a JSON data type but they flatten nested JSON documents at insertion time to a single level (typically using `.` as separator between levels).
+Some databases provide a native JSON data type that flattens nested JSON documents at insertion time to a single level, typically using `.` as separator between levels.
 We consider this a grey zone.
-On the one hand, this removes the possibility to restore the original documents, on the other hand, flattening may in many practical situations be acceptable.
-The dashboard allows to filter out databases which do not retain the document structure (i.e. which flatten).
+On the one hand, flattening removes the possibility to restore the original documents.
+On the other hand, flattening is in many practical situations acceptable.
+The dashboard provides a toggle which allows to show or hide databases that use flattening.
+In the scope of JSONBench, we generally discourage flattening.
+
+Other forms of flattening, in particular flattening JSON into multiple non-JSON colums at insertion time, are disallowed.
+
+It is allowed to index the data using clustered indexes (= specifying the table sort order) or non-clustered indexes (= additional data structures, e.g. B-trees).
+We recognize that there are pros and cons of this approach.
+
+Pros:
+- The JSON documents in JSONBench expose a common and rather static structure. Many real-world use cases expose similar patterns. It is a widely used practice to create indexes based on the anticipated data structure.
+- The original [blog post](https://clickhouse.com/blog/json-bench-clickhouse-vs-mongodb-elasticsearch-duckdb-postgresql#some-json-paths-can-be-used-for-indexes-and-data-sorting) made use of indexes. Disallowing clustered indexes entirely would invalidate the original measurements.
+
+Cons:
+- There may be other real-world use cases where the JSON documents are highly dynamic (they share no common structure). In these cases, indexes are not useful.
+- Many databases use indexes to prune the set of scanned data ranges or retrieve result rows directly (no scan). As a result, the benchmark indirectly also measures the effectiveness of such access path optimization techniques.
+- Likewise, clustered indexes impact how well the data can be compressed. Again, this affects query runtimes indirectly.
+- In some databases, clustered indexes must be build on top of flattened (e.g. concatenated and materialized) JSON documents. This technically contradicts the previous statement that flattening is discouraged.
+
+It is not allowed to use cache query results (or generally intermediate results at the end of the query processing pipeline) between hot runs.
 
 ## Goals
 

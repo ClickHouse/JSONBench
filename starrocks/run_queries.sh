@@ -26,7 +26,7 @@ cat queries.sql | while read -r query; do
 
     # Execute the query multiple times
     for i in $(seq 1 $TRIES); do
-        RESP=$({ /usr/bin/time -f '%e' \
+        RESP=$({ time -f '%e' \
                     mysql -N -s -h "$DB_HOST" -P "$DB_MYSQL_PORT" -u"$DB_USER" "$DB_NAME" \
                     -e "$query" >/dev/null; } 2>&1)
         echo "Response time: ${RESP} s"

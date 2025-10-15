@@ -27,7 +27,7 @@ cat queries.sql | while read -r query; do
     # Execute the query multiple times
     for i in $(seq 1 $TRIES); do
         RESP=$({ /usr/bin/time -f '%e' \
-                    mysql -ABN -h "$DB_HOST" -P "$DB_MYSQL_PORT" -u"$DB_USER" "$DB_NAME" \
+                    mysql --skip-auto-rehash --batch --silent -h "$DB_HOST" -P "$DB_MYSQL_PORT" -u"$DB_USER" "$DB_NAME" \
                     -e "$query" >/dev/null; } 2>&1)
         echo "Response time: ${RESP} s"
     done;

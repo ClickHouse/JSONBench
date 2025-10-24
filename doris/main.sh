@@ -2,7 +2,7 @@
 
 # If you change something in this file, please change also in starrocks/main.sh.
 
-export DORIS_FULL_NAME="apache-doris-3.0.5-bin-x64"
+export DORIS_FULL_NAME="apache-doris-3.1.0-bin-x64"
 
 DEFAULT_CHOICE=ask
 DEFAULT_DATA_DIRECTORY=~/data/bluesky

@@ -27,6 +27,12 @@
 
             --summary-every-other-row-color: #F8F8F8;
             --highlight-color: #EEE;
+
+            --bar-color1: oklch(calc(0.9 - 0.6) 0.1 calc(90 - 60));
+            --bar-color2: oklch(calc(0.9 - 0.4) 0.1 calc(90 - 40));
+            --bar-color3: oklch(calc(0.9 - 0.1) 0.1 calc(90 - 20));
+            --bar-color4: oklch(0.9 0.1 90);
+
             --bar-color: #FFCB80;
             --fake-bar-color: #CCC;
 
@@ -54,6 +60,12 @@
 
             --summary-every-other-row-color: #042e41;
             --highlight-color: #064663;
+
+            --bar-color1: oklch(calc(0.4 + 0.6) 0.1 calc(250 - 180));
+            --bar-color2: oklch(calc(0.4 + 0.4) 0.1 calc(250 - 120));
+            --bar-color3: oklch(calc(0.4 + 0.2) 0.1 calc(250 - 60));
+            --bar-color4: oklch(0.4 0.1 250);
+
             --bar-color: #088;
             --fake-bar-color: #666;
 
@@ -155,8 +167,7 @@
 
         .summary-bar {
             height: 1rem;
-            background: var(--bar-color);
-            border-radius: 0 0.2rem 0.2rem 0;
+            width: 100%;
         }
 
         .summary-bar-fake {
@@ -286,6 +297,12 @@
             display: inline-block;
             transform: translate(1px, 1px);
             filter: brightness(125%);
+        }
+
+        #scale_hint {
+            font-weight: normal;
+            font-size: 80%;
+            filter: contrast(10%);
         }
     </style>
     <script type="text/javascript">
@@ -430,7 +447,8 @@ const data = [
                 System
             </th>
             <th colspan="2">
-                <span id="metric-title">Relative time (lower is better)</span>
+                <span id="metric-title">Relative time (lower is better)</span>.<br/>
+                <span id="scale_hint"></span>
             </th>
         </tr>
     </thead>
@@ -739,7 +757,21 @@ function renderSummary(filtered_data) {
         let bar = document.createElement('div');
 
         bar.className = elem.fake ? `summary-bar-fake` : `summary-bar`;
-        bar.style.width = `${percentage}%`;
+        if (elem.fake) {
+            bar.style.width = `${percentage}%`;
+        } else {
+            bar.style.background = `linear-gradient(to right,
+                var(--bar-color1) 0%,
+                var(--bar-color1) ${Math.min(100, percentage)}%,
+                var(--bar-color2) ${Math.min(100, percentage)}%,
+                var(--bar-color2) ${Math.min(100, percentage * 10)}%,
+                var(--bar-color3) ${Math.min(100, percentage * 10)}%,
+                var(--bar-color3) ${Math.min(100, percentage * 100)}%,
+                var(--bar-color4) ${Math.min(100, percentage * 100)}%,
+                var(--bar-color4) ${Math.min(100, percentage * 1000)}%,
+                transparent ${Math.min(100, percentage * 1000)}%,
+                transparent 100%)`;
+        }
 
         td_bar.appendChild(bar);
 
@@ -950,6 +982,9 @@ function render() {
 
         details_body.appendChild(tr);
     }
+
+    /// The small hint below column heading "Relative time (lower is better)"
+    document.getElementById("scale_hint").textContent = 'Different colors on the bar chart represent the same values shown at different scales (1x, 10x, 100x zoom)';
 }
 
 function updateHistory() {

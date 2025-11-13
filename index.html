@@ -671,7 +671,7 @@ function renderSummary(filtered_data) {
 
     const baseline_data = [...queries.keys()].map(query_num =>
         [...Array(3).keys()].map(run_num =>
-            Math.min(...filtered_data.filter(elem => !elem.fake && elem.result.length > 0).map(elem => elem.result[query_num][run_num]).filter(x => x))));
+            Math.min(...filtered_data.filter(elem => !elem.fake && elem.result.length > 0).map(elem => elem.result[query_num][run_num]).filter(x => x != null))));
 
     const min_load_time = Math.min(...filtered_data.map(elem => elem.load_time).filter(x => x));
     const min_data_size = Math.min(...filtered_data.map(elem => elem.total_size).filter(x => x));

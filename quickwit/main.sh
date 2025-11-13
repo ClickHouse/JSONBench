@@ -35,7 +35,7 @@ fi
 export QW_CONFIG="$PWD/config/quickwit.yaml"
 export QW_DATA_DIR="$PWD/qwdata"
 
-# ./install.sh
+./install.sh
 
 benchmark() {
     local size=$1

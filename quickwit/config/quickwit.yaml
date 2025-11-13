@@ -1,3 +1,6 @@
 version: 0.8
 
 listen_address: 0.0.0.0
+
+searcher:
+  aggregation_memory_limit: 64G

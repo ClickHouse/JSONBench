@@ -1,0 +1,292 @@
+------------------------------------------------------------------------------------------------------------------------
+Result for query Q1:
+
+{
+  "events": {
+    "buckets": [
+      {
+        "key": "app.bsky.feed.like",
+        "doc_count": 448944
+      },
+      {
+        "key": "app.bsky.graph.follow",
+        "doc_count": 360374
+      },
+      {
+        "key": "app.bsky.feed.post",
+        "doc_count": 90816
+      },
+      {
+        "key": "app.bsky.feed.repost",
+        "doc_count": 58540
+      },
+      {
+        "key": "app.bsky.graph.block",
+        "doc_count": 14040
+      },
+      {
+        "key": "app.bsky.actor.profile",
+        "doc_count": 11762
+      },
+      {
+        "key": "app.bsky.graph.listitem",
+        "doc_count": 8103
+      },
+      {
+        "key": "app.bsky.graph.listblock",
+        "doc_count": 895
+      },
+      {
+        "key": "app.bsky.graph.starterpack",
+        "doc_count": 405
+      },
+      {
+        "key": "app.bsky.graph.list",
+        "doc_count": 356
+      },
+      {
+        "key": "app.bsky.feed.threadgate",
+        "doc_count": 255
+      },
+      {
+        "key": "app.bsky.feed.postgate",
+        "doc_count": 104
+      },
+      {
+        "key": "app.bsky.feed.generator",
+        "doc_count": 74
+      },
+      {
+        "key": "app.bsky.labeler.service",
+        "doc_count": 4
+      }
+    ],
+    "sum_other_doc_count": 0,
+    "doc_count_error_upper_bound": 0
+  }
+}
+------------------------------------------------------------------------------------------------------------------------
+Result for query Q2:
+
+{
+  "events": {
+    "buckets": [
+      {
+        "key": "app.bsky.feed.like",
+        "doc_count": 444523,
+        "users": {
+          "value": 117671.0
+        }
+      },
+      {
+        "key": "app.bsky.graph.follow",
+        "doc_count": 337978,
+        "users": {
+          "value": 64023.0
+        }
+      },
+      {
+        "key": "app.bsky.feed.post",
+        "doc_count": 86812,
+        "users": {
+          "value": 50489.0
+        }
+      },
+      {
+        "key": "app.bsky.feed.repost",
+        "doc_count": 56993,
+        "users": {
+          "value": 26584.0
+        }
+      },
+      {
+        "key": "app.bsky.graph.block",
+        "doc_count": 13838,
+        "users": {
+          "value": 5785.0
+        }
+      },
+      {
+        "key": "app.bsky.graph.listitem",
+        "doc_count": 7568,
+        "users": {
+          "value": 1078.0
+        }
+      },
+      {
+        "key": "app.bsky.actor.profile",
+        "doc_count": 5337,
+        "users": {
+          "value": 5336.0
+        }
+      },
+      {
+        "key": "app.bsky.graph.listblock",
+        "doc_count": 860,
+        "users": {
+          "value": 449.0
+        }
+      },
+      {
+        "key": "app.bsky.graph.list",
+        "doc_count": 259,
+        "users": {
+          "value": 218.0
+        }
+      },
+      {
+        "key": "app.bsky.feed.threadgate",
+        "doc_count": 228,
+        "users": {
+          "value": 196.0
+        }
+      },
+      {
+        "key": "app.bsky.graph.starterpack",
+        "doc_count": 104,
+        "users": {
+          "value": 101.0
+        }
+      },
+      {
+        "key": "app.bsky.feed.postgate",
+        "doc_count": 101,
+        "users": {
+          "value": 82.0
+        }
+      },
+      {
+        "key": "app.bsky.feed.generator",
+        "doc_count": 10,
+        "users": {
+          "value": 9.0
+        }
+      }
+    ],
+    "sum_other_doc_count": 0,
+    "doc_count_error_upper_bound": 0
+  }
+}
+------------------------------------------------------------------------------------------------------------------------
+Result for query Q3:
+
+{
+  "events": {
+    "buckets": [
+      {
+        "key": "app.bsky.feed.like",
+        "doc_count": 444523,
+        "hour_of_day": {
+          "buckets": [
+            {
+              "key_as_string": "2024-11-21T16:00:00Z",
+              "key": 1732204800000.0,
+              "doc_count": 444523
+            }
+          ]
+        }
+      },
+      {
+        "key": "app.bsky.feed.post",
+        "doc_count": 86812,
+        "hour_of_day": {
+          "buckets": [
+            {
+              "key_as_string": "2024-11-21T16:00:00Z",
+              "key": 1732204800000.0,
+              "doc_count": 86812
+            }
+          ]
+        }
+      },
+      {
+        "key": "app.bsky.feed.repost",
+        "doc_count": 56993,
+        "hour_of_day": {
+          "buckets": [
+            {
+              "key_as_string": "2024-11-21T16:00:00Z",
+              "key": 1732204800000.0,
+              "doc_count": 56993
+            }
+          ]
+        }
+      }
+    ],
+    "sum_other_doc_count": 0
+  }
+}
+------------------------------------------------------------------------------------------------------------------------
+Result for query Q4:
+
+{
+  "users": {
+    "buckets": [
+      {
+        "key": "did:plc:yj3sjq3blzpynh27cumnp5ks",
+        "doc_count": 1,
+        "first_post": {
+          "value": 1.732206349000167E+18
+        }
+      },
+      {
+        "key": "did:plc:l5o3qjrmfztir54cpwlv2eme",
+        "doc_count": 1,
+        "first_post": {
+          "value": 1.732206349001905E+18
+        }
+      },
+      {
+        "key": "did:plc:s4bwqchfzm6gjqfeb6mexgbu",
+        "doc_count": 1,
+        "first_post": {
+          "value": 1.732206349003907E+18
+        }
+      }
+    ],
+    "sum_other_doc_count": 86809
+  }
+}
+------------------------------------------------------------------------------------------------------------------------
+Result for query Q5:
+
+{
+  "users": {
+    "buckets": [
+      {
+        "key": "did:plc:ps6ytbha3ljh7eeyyaest42j",
+        "doc_count": 1,
+        "activity_span": {
+          "count": 1,
+          "sum": 1.732207162788702E+18,
+          "min": 1.732207162788702E+18,
+          "max": 1.732207162788702E+18,
+          "avg": 1.732207162788702E+18
+        }
+      },
+      {
+        "key": "did:plc:pkugst3ilk3eunckdfswseih",
+        "doc_count": 1,
+        "activity_span": {
+          "count": 1,
+          "sum": 1.732207162784808E+18,
+          "min": 1.732207162784808E+18,
+          "max": 1.732207162784808E+18,
+          "avg": 1.732207162784808E+18
+        }
+      },
+      {
+        "key": "did:plc:3fjp7624vv7jsyjsiaw35mrj",
+        "doc_count": 1,
+        "activity_span": {
+          "count": 1,
+          "sum": 1.732207162783277E+18,
+          "min": 1.732207162783277E+18,
+          "max": 1.732207162783277E+18,
+          "avg": 1.732207162783277E+18
+        }
+      }
+    ],
+    "sum_other_doc_count": 86809
+  }
+}

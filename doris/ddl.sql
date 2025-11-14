@@ -7,5 +7,4 @@ CREATE TABLE bluesky (
     `data` variant<'kind': string, 'commit.operation' : string, 'commit.collection' : string, 'did' : string, 'time_us' : bigint, properties("variant_max_subcolumns_count" = "1024")> NOT NULL
 )
 DUPLICATE KEY (kind, operation, collection, did)
-DISTRIBUTED BY HASH(collection, did) BUCKETS 32
 PROPERTIES ("replication_num"="1");

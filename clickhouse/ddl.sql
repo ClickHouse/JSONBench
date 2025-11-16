@@ -1,7 +1,7 @@
 CREATE TABLE bluesky
 (
     `data` JSON(
-        max_dynamic_paths = 0,
+        max_dynamic_paths = 0, -- will become the default for large uses in future
         kind LowCardinality(String),
         commit.operation LowCardinality(String),
         commit.collection LowCardinality(String),

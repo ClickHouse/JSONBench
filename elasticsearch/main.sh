@@ -54,46 +54,30 @@ benchmark() {
 
 case $CHOICE in
     2)
-        benchmark 10 no_source_best_compression
-        benchmark 10 source_best_compression
-        benchmark 10 source_default_compression
-        benchmark 10 no_source_default_compression
+        benchmark 10 no_source
+        benchmark 10 source
         ;;
     3)
-        benchmark 100 no_source_best_compression
-        benchmark 100 source_best_compression
-        benchmark 100 source_default_compression
-        benchmark 100 no_source_default_compression
+        benchmark 100 no_source
+        benchmark 100 source
         ;;
     4)
-        benchmark 1000 no_source_best_compression
-        benchmark 1000 source_best_compression
-        benchmark 1000 source_default_compression
-        benchmark 1000 no_source_default_compression
+        benchmark 1000 no_source
+        benchmark 1000 source
         ;;
     5)
-        benchmark 1 no_source_best_compression
-        benchmark 1 source_best_compression
-        benchmark 1 source_default_compression
-        benchmark 1 no_source_default_compression
-        benchmark 10 no_source_best_compression
-        benchmark 10 source_best_compression
-        benchmark 10 source_default_compression
-        benchmark 10 no_source_default_compression
-        benchmark 100 no_source_best_compression
-        benchmark 100 source_best_compression
-        benchmark 100 source_default_compression
-        benchmark 100 no_source_default_compression
-        benchmark 1000 no_source_best_compression
-        benchmark 1000 source_best_compression
-        benchmark 1000 source_default_compression
-        benchmark 1000 no_source_default_compression
+        benchmark 1 no_source
+        benchmark 1 source
+        benchmark 10 no_source
+        benchmark 10 source
+        benchmark 100 no_source
+        benchmark 100 source
+        benchmark 1000 no_source
+        benchmark 1000 source
         ;;
     *)
-        benchmark 1 no_source_best_compression
-        benchmark 1 source_best_compression
-        benchmark 1 source_default_compression
-        benchmark 1 no_source_default_compression
+        benchmark 1 no_source
+        benchmark 1 source
         ;;
 esac
 

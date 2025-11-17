@@ -36,50 +36,42 @@ fi
 
 benchmark() {
     local size=$1
-    local compression=$2
+    local compression=x
     # Check DATA_DIRECTORY contains the required number of files to run the benchmark
     file_count=$(find "$DATA_DIRECTORY" -type f | wc -l)
     if (( file_count < size )); then
         echo "Error: Not enough files in '$DATA_DIRECTORY'. Required: $size, Found: $file_count."
         exit 1
     fi
-    ./create_and_load.sh "bluesky_${size}m_${compression}" bluesky "ddl_${compression}.js" "$DATA_DIRECTORY" "$size" "$SUCCESS_LOG" "$ERROR_LOG"
-    ./total_size.sh "bluesky_${size}m_${compression}" bluesky | tee "${OUTPUT_PREFIX}_bluesky_${size}m_${compression}.total_size"
-    ./data_size.sh "bluesky_${size}m_${compression}" bluesky | tee "${OUTPUT_PREFIX}_bluesky_${size}m_${compression}.data_size"
-    ./index_size.sh "bluesky_${size}m_${compression}" bluesky | tee "${OUTPUT_PREFIX}_bluesky_${size}m_${compression}.index_size"
-    ./count.sh "bluesky_${size}m_${compression}" bluesky | tee "${OUTPUT_PREFIX}_bluesky_${size}m_${compression}.count"
-    #./query_results.sh "bluesky_${size}m_${compression}" | tee "${OUTPUT_PREFIX}_bluesky_${size}m_${compression}.query_results"
-    ./index_usage.sh "bluesky_${size}m_${compression}" | tee "${OUTPUT_PREFIX}_bluesky_${size}m_${compression}.index_usage"
-    ./benchmark.sh "bluesky_${size}m_${compression}" "${OUTPUT_PREFIX}_bluesky_${size}m_${compression}.results_runtime"
-    ./drop_table.sh "bluesky_${size}m_${compression}"
+    ./create_and_load.sh "bluesky_${size}m" bluesky "$DATA_DIRECTORY" "$size" "$SUCCESS_LOG" "$ERROR_LOG"
+    ./total_size.sh "bluesky_${size}m" bluesky | tee "${OUTPUT_PREFIX}_bluesky_${size}m.total_size"
+    ./data_size.sh "bluesky_${size}m" bluesky | tee "${OUTPUT_PREFIX}_bluesky_${size}m.data_size"
+    ./index_size.sh "bluesky_${size}m" bluesky | tee "${OUTPUT_PREFIX}_bluesky_${size}m.index_size"
+    ./count.sh "bluesky_${size}m" bluesky | tee "${OUTPUT_PREFIX}_bluesky_${size}m.count"
+    #./query_results.sh "bluesky_${size}m" | tee "${OUTPUT_PREFIX}_bluesky_${size}m.query_results"
+    ./index_usage.sh "bluesky_${size}m" | tee "${OUTPUT_PREFIX}_bluesky_${size}m.index_usage"
+    ./benchmark.sh "bluesky_${size}m" "${OUTPUT_PREFIX}_bluesky_${size}m.results_runtime"
+    ./drop_table.sh "bluesky_${size}m"
 }
 
 case $CHOICE in
     2)
-        benchmark 10 snappy
-        benchmark 10 zstd
+        benchmark 10
         ;;
     3)
-        benchmark 100 snappy
-        benchmark 100 zstd
+        benchmark 100
         ;;
     4)
-        benchmark 1000 snappy
-        benchmark 1000 zstd
+        benchmark 1000
         ;;
     5)
-        benchmark 1 snappy
-        benchmark 1 zstd
-        benchmark 10 snappy
-        benchmark 10 zstd
-        benchmark 100 snappy
-        benchmark 100 zstd
-        benchmark 1000 snappy
-        benchmark 1000 zstd
+        benchmark 1
+        benchmark 10
+        benchmark 100
+        benchmark 1000
         ;;
     *)
-        benchmark 1 snappy
-        benchmark 1 zstd
+        benchmark 1
         ;;
 esac
 

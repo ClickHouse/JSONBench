@@ -1,5 +1,5 @@
 {
-  "system": "Elasticsearch (no source, zstd)",
+  "system": "Elasticsearch (no source)",
   "version": "8.17.0",
   "os": "Ubuntu 24.04",
   "date": "2025-01-14",

@@ -1,1 +1,0 @@
-../mongodb/create_and_load.sh

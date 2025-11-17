@@ -1,1 +1,0 @@
-../mongodb/load_data.sh

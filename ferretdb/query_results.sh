@@ -1,1 +1,0 @@
-../mongodb/query_results.sh

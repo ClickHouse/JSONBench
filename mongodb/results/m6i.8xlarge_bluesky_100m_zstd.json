@@ -1,5 +1,5 @@
 {
-  "system": "MongoDB",
+  "system": "MongoDB (zstd)",
   "version": "8.0.6",
   "os": "Ubuntu 24.04",
   "date": "2025-01-13",

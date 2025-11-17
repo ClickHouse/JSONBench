@@ -1,1 +1,0 @@
-../mongodb/total_size.sh

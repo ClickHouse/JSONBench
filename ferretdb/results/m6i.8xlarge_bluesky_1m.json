@@ -1,5 +1,5 @@
 {
-  "system": "FerretDB (zstd)",
+  "system": "FerretDB",
   "version": "2.0.0",
   "os": "Ubuntu 24.04",
   "date": "2025-01-13",

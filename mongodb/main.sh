@@ -36,7 +36,6 @@ fi
 
 benchmark() {
     local size=$1
-    local compression=x
     # Check DATA_DIRECTORY contains the required number of files to run the benchmark
     file_count=$(find "$DATA_DIRECTORY" -type f | wc -l)
     if (( file_count < size )); then

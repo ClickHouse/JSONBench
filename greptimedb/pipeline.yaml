@@ -1,34 +1,25 @@
+version: 2
+
 processors:
+  - json_parse:
+      fields:
+        - message, data
+      ignore_missing: true
+  - simple_extract:
+      fields:
+        - data, time_us
+      key: "time_us"
+      ignore_missing: false
   - epoch:
       fields:
         - time_us
       resolution: microsecond
-  - simple_extract:
+  - select:
       fields:
-        - commit, commit_collection
-      key: "collection"
-      ignore_missing: true
-  - simple_extract:
-      fields:
-        - commit, commit_operation
-      key: "operation"
-      ignore_missing: true
+        - time_us
+        - data
 
 transform:
-  - fields:
-      - did
-    type: string
-  - fields:
-      - kind
-      - commit_collection
-      - commit_operation
-    type: string
-    index: inverted
-    tag: true
-  - fields:
-      - commit
-    type: json
-    on_failure: ignore
   - fields:
       - time_us
     type: epoch, us

@@ -21,6 +21,3 @@ do
 done
 echo "Started GreptimeDB."
 
-# init pipeline
-curl -s -XPOST 'http://localhost:4000/v1/events/pipelines/jsonbench' -F 'file=@pipeline.yaml'
-echo -e "\nPipeline initialized."

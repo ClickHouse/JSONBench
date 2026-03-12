@@ -1,0 +1,5 @@
+{"query":"*","max_hits":0,"aggs":{"events":{"terms":{"field":"commit.collection","order":{"_count":"desc"},"size": 1000}}}}
+{"query":"kind:commit AND commit.operation:create","max_hits":0,"aggs":{"events":{"terms":{"field":"commit.collection","order":{"_count":"desc"},"size":1000},"aggs":{"users":{"cardinality":{"field":"did"}}}}}}
+{"query":"kind:commit AND commit.operation:create AND commit.collection:IN [app.bsky.feed.post app.bsky.feed.repost app.bsky.feed.like]","max_hits":0,"aggs":{"events":{"terms":{"field":"commit.collection","order":{"_key":"asc"},"size":1000},"aggs":{"hour_of_day":{"date_histogram":{"field":"time_us","fixed_interval":"1h"}}}}}}
+{"query":"kind:commit AND commit.operation:create AND commit.collection:app.bsky.feed.post","max_hits":0,"aggs":{"users":{"terms":{"field":"did","order":{"first_post":"asc"},"size":3},"aggs":{"first_post":{"min":{"field":"time_us"}}}}}}
+{"query":"kind:commit AND commit.operation:create AND commit.collection:app.bsky.feed.post","max_hits":0,"aggs":{"users":{"terms":{"field":"did","order":{"activity_span.max":"desc"},"size":3},"aggs":{"activity_span":{"stats":{"field":"time_us"}}}}}}

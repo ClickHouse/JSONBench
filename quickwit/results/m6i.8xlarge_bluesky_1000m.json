@@ -1,0 +1,21 @@
+{
+  "system": "Quickwit",
+  "version": "quickwit-f6cb417-x86_64-unknown-linux-gnu",
+  "os": "Ubuntu 24.04",
+  "date": "2025-11-13",
+  "machine": "m6i.8xlarge, 10000gib gp3",
+  "retains_structure": "no",
+  "tags": [
+  ],
+  "dataset_size": 1000000000,
+  "num_loaded_documents": 947421756,
+  "total_size": 203301029796,
+  "data_size": 203300967417,
+  "result": [
+    [4.16384, 0.002826, 0.001797],
+    [35.3774, 0.144555, 0.143494],
+    [22.5511, 0.004456, 0.003906],
+    [120.308, 80.7852, 81.28],
+    [116.023, 81.02, 81.3811]
+  ]
+}

@@ -1,0 +1,64 @@
+------------------------------------------------------------------------------------------------------------------------
+-- Q1 - Top event types
+------------------------------------------------------------------------------------------------------------------------
+
+select
+    commit.collection as event,
+    count(*) as count
+from bluesky
+group by event
+order by count desc;
+
+------------------------------------------------------------------------------------------------------------------------
+-- Q2 - Top event types together with unique users per event type
+------------------------------------------------------------------------------------------------------------------------
+
+select
+    commit.collection as event,
+    count(*) as count,
+    count(distinct did) as users
+from bluesky
+where kind == 'commit' and commit.operation = 'create'
+group by event
+order by count desc;
+
+------------------------------------------------------------------------------------------------------------------------
+-- Q3 - When do people use BlueSky
+------------------------------------------------------------------------------------------------------------------------
+
+select
+    commit.collection as event,
+    extract(hour from epoch_time_to_timestamp(time_us/1000000)) as hour_of_day,
+    count(*) as count
+from bluesky
+where kind = 'commit' AND commit.operation = 'create' and commit.collection IN ['app.bsky.feed.post', 'app.bsky.feed.repost', 'app.bsky.feed.like']
+group by event, hour_of_day
+order by hour_of_day, event;
+
+------------------------------------------------------------------------------------------------------------------------
+-- Q4 - top 3 post veterans
+------------------------------------------------------------------------------------------------------------------------
+
+select
+    did as user_id,
+    min(epoch_time_to_timestamp(time_us/1000000)) as first_post_ts
+from bluesky
+where kind = 'commit' and commit.operation = 'create' and commit.collection = 'app.bsky.feed.post'
+group by user_id
+order by first_post_ts asc
+limit 3;
+
+------------------------------------------------------------------------------------------------------------------------
+-- Q5 - top 3 users with longest activity
+------------------------------------------------------------------------------------------------------------------------
+
+select
+    did as user_id,
+    1000*extract(epoch from date_diff(
+            coerce_to_str(max(epoch_time_to_timestamp(time_us/1000000))),
+            coerce_to_str(min(epoch_time_to_timestamp(time_us/1000000))))) as activity_span
+from bluesky
+where kind = 'commit' and commit.operation = 'create' and commit.collection = 'app.bsky.feed.post'
+group by user_id
+order by activity_span desc
+limit 3;

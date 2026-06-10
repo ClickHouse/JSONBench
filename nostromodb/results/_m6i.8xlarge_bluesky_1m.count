@@ -1,0 +1,7 @@
+Opened database at '/db/catalog.json'
+╭───────────────╮
+│ count(*): int │
+├───────────────┤
+│ 1000000       │
+╰───────────────╯
+1 value(s) returned.

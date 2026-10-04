@@ -1,0 +1,19 @@
+{
+  "system": "Opteryx",
+  "version": "0.9.153",
+  "os": "Ubuntu 24.04",
+  "date": "2026-10-04",
+  "machine": "m6i.8xlarge, 500gib gp3",
+  "retains_structure": "yes",
+  "tags": [],
+  "dataset_size": 100000000,
+  "num_loaded_documents": 99999968,
+  "total_size": 47813179260,
+  "result": [
+    [364.517, 2.183, 2.19],
+    [364.571, 3.702, 3.689],
+    [364.48, 3.387, 3.406],
+    [364.555, 2.239, 2.249],
+    [364.618, 2.264, 2.291]
+  ]
+}

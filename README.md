@@ -172,6 +172,7 @@ While the main benchmark uses a specific machine configuration for reproducibili
 - [x] VictoriaLogs
 - [x] SingleStore
 - [x] GreptimeDB
+- [x] Opteryx
 - [x] FerretDB
 - [x] Apache Doris
 - [ ] Quickwit

@@ -1,5 +1,10 @@
 # JSONBench: A Benchmark For Data Analytics on JSON
 
+> [!IMPORTANT]
+> **JSONBench has moved.** It is now a part of [ClickBench](https://github.com/ClickHouse/ClickBench), in the [`json`](https://github.com/ClickHouse/ClickBench/tree/main/json) directory, and the results are published at https://benchmark.clickhouse.com/json/.
+> There, all the systems are installed and benchmarked by unattended scripts on fresh cloud machines launched from GitHub Actions, and the results are collected automatically. The systems were updated to their latest versions, the results reproduced, and many new systems added.
+> This repository is no longer maintained and is kept for history; please send issues and pull requests to [ClickBench](https://github.com/ClickHouse/ClickBench).
+
 ## Overview
 
 This benchmark compares the native JSON support of the most popular analytical databases.
